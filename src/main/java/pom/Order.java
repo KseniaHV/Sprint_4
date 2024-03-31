@@ -74,16 +74,8 @@ public class Order {
     public void openPage() {
         driver.get(EnvConfig.BASE_URL);
     }
-    public void acceptCookies() {
-        // Проверяем, существует ли элемент
-        List<WebElement> cookiesButton = driver.findElements(cookie);
-     
-        if (!cookiesButton.isEmpty()) {
-            cookiesButton.get(0).click();
-        }
-    }
 
-    public void ordering(int orderButtonIndex, String name, String lastName, String address, int metroIndex,
+    public void orderForm(int orderButtonIndex, String name, String lastName, String address, int metroIndex,
                          String number, int dateIndex, int rentalIndex, String comment) {
         clickOrderButton(orderButtonIndex);
         inputName(name);

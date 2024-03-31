@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import pom.CookiesManager;
 import pom.Faq;
 
 @RunWith(Parameterized.class)
@@ -19,7 +20,7 @@ import pom.Faq;
     }
 
     @Parameterized.Parameters
-    public static Object[][] getCities() {
+    public static Object[][] getAnswers() {
         return new Object[][]{
                 {0, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
                 {1, "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, " +
@@ -45,14 +46,15 @@ import pom.Faq;
 
     @Test
 
-    public void DropdownListTests() {
+    public void dropDownListTests() {
         WebDriver driver = driverFactory.getDriver();
+        CookiesManager cookies = new CookiesManager(driver);
+        Faq faqPage = new Faq(driver);
 
-        Faq objFaqPage = new Faq(driver);
-        objFaqPage.openWebsite();
-        objFaqPage.acceptCookies();
-        objFaqPage.clickOnQuestion(question);
-        objFaqPage.checkFaq(question, answer);
+        faqPage.openWebsite();
+        cookies.acceptCookies();
+        faqPage.clickOnQuestion(question);
+        faqPage.checkFaq(question, answer);
 
     }
 

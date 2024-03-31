@@ -4,6 +4,7 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import pom.CookiesManager;
 import pom.Order;
 
 @RunWith(Parameterized.class)
@@ -34,7 +35,7 @@ public class OrderFormTests {
     }
 
     @Parameterized.Parameters
-    public static Object[][] getCities() {
+    public static Object[][] getData() {
         return new Object[][]{
                 {0, "Владимир", "Мясников", "Бутырская, 45", 1, "79999017561", 0, 1,
                         "Позвоните за 5 минут до прибытия"},
@@ -42,27 +43,28 @@ public class OrderFormTests {
         };
     }
 
-    @Before
-        public void initDriver() {
+    @BeforeClass
+        public static void initDriver() {
             driverFactory.initDriver();
         }
 
     @Test
-    public void CreatingOrder() {
+    public void creatingOrder() {
         WebDriver driver = driverFactory.getDriver();
 
-        Order objOrderPage = new Order(driver);
+        Order orderPage = new Order(driver);
+        CookiesManager cookies = new CookiesManager(driver);
 
-        objOrderPage.openPage(); // Открыть страницу
-        objOrderPage.acceptCookies(); // Принять куки
-        objOrderPage.ordering(orderButtonIndex, name, lastName, address, metroIndex, number, dateIndex, rentalIndex,
+        orderPage.openPage(); // Открыть страницу
+        cookies.acceptCookies();; // Принять куки
+        orderPage.orderForm(orderButtonIndex, name, lastName, address, metroIndex, number, dateIndex, rentalIndex,
                 comment); // Сделать заказ
-        objOrderPage.checkSuccessScreen(); // Проверить, что заказ успешно создан
+        orderPage.checkSuccessScreen(); // Проверить, что заказ успешно создан
     }
 
 
-    @After
-    public void closeDriver(){
+    @AfterClass
+    public static void closeDriver(){
         driverFactory.getDriver().quit();
     }
 }

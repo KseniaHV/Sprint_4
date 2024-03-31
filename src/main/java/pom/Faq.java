@@ -22,14 +22,6 @@ public class Faq {
     public void openWebsite() {
         driver.get(EnvConfig.BASE_URL);
     }
-    public void acceptCookies() {
-        // Проверяем, существует ли элемент
-        List<WebElement> cookiesButton = driver.findElements(cookie);
-
-        if (!cookiesButton.isEmpty()) {
-            cookiesButton.get(0).click();
-        }
-    }
     public void clickOnQuestion(int itemId) {
         String dynamicItemId = accordionItem + itemId;
 
